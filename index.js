@@ -29,7 +29,6 @@ bot.onText(/\/Weather/, (msg) => {
 });
 
 bot.on("message", async (msg) => {
-  console.log("msg: ", msg);
   if (!msg.entities) {
     const chatId = msg.chat.id;
 
