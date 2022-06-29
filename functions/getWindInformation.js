@@ -46,14 +46,16 @@ const getEveryThreeHours = (arr) => {
       directionWind = "↖Пн/Зх";
     }
 
-    if (i === 0 || date[0] !== oldDate[0]) {
-      acc += `\n\n${date[0]}:\n  ${time}, ${sign}${Math.round(
-        temp
-      )}℃, вітер ${speed}м/с, ${directionWind}`;
-    } else {
-      acc += `\n  ${time}, ${sign}${Math.round(
-        temp
-      )}℃, вітер ${speed}м/с, ${directionWind}`;
+    if (i < 3) {
+      if (i === 0 || date[0] !== oldDate[0]) {
+        acc += `\n\n${date[0]}:\n  ${time}, ${sign}${Math.round(
+          temp
+        )}℃, вітер ${speed}м/с, ${directionWind}`;
+      } else {
+        acc += `\n  ${time}, ${sign}${Math.round(
+          temp
+        )}℃, вітер ${speed}м/с, ${directionWind}`;
+      }
     }
     return acc;
   }, ``);
