@@ -41,7 +41,7 @@ const getExchangeRates = async (currency) => {
 	function currencyFilter(currency, code, dataPrivat) {
 		const messagePrivat = dataPrivat.reduce((acc, el) => {
 			if (el.ccy === currency) {
-				acc += `\nPriavt:\n${Number(el.buy).toFixed(
+				acc += `\nPrivat:\n${Number(el.buy).toFixed(
 					2,
 				)} → ${currency} → ${Number(el.sale).toFixed(2)}`;
 			}
