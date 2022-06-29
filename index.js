@@ -8,6 +8,10 @@ import getWindInformation from "./functions/getWindInformation.js";
 const { TOKEN } = process.env;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
+setInterval(() => {
+  console.log(`I love async JS!`);
+}, 120000);
+
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(msg.chat.id, "Welcome", {
     reply_markup: {
@@ -17,15 +21,19 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.onText(/\/Weather/, (msg) => {
-  bot.sendMessage(msg.chat.id, "Оберіть інтервал часу", {
-    reply_markup: {
-      keyboard: [
-        ["Кожні 3 години", "Кожні 6 годин"],
-        ["Вітер"],
-        ["Попередне меню"],
-      ],
-    },
-  });
+  bot.sendMessage(
+    msg.chat.id,
+    "Оберіть інтервал часу або дізнайтесь швидкість вітру",
+    {
+      reply_markup: {
+        keyboard: [
+          ["Кожні 3 години", "Кожні 6 годин"],
+          ["Вітер"],
+          ["Попередне меню"],
+        ],
+      },
+    }
+  );
 });
 
 bot.on("message", async (msg) => {
@@ -56,9 +64,5 @@ bot.on("message", async (msg) => {
       default:
         console.log("Invalid subscription type");
     }
-
-    // const message = msg.text.toString().trim();
-
-    // process.exit();
   }
 });
