@@ -8,10 +8,6 @@ import getWindInformation from "./functions/getWindInformation.js";
 const { TOKEN } = process.env;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-setInterval(() => {
-  console.log(`I love async JS!`);
-}, 120000);
-
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(msg.chat.id, "Welcome", {
     reply_markup: {
