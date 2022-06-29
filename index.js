@@ -14,12 +14,12 @@ const bot = new TelegramBot(TOKEN, { polling: true });
 bot.onText(/\/start/, (msg) => {
 	bot.sendMessage(msg.chat.id, 'Welcome', {
 		reply_markup: {
-			keyboard: [['/Weather'], ['/Coin']],
+			keyboard: [['/Погода'], ['/Курс валют']],
 		},
 	});
 });
 
-bot.onText(/\/Weather/, (msg) => {
+bot.onText(/\/Погода/, (msg) => {
 	bot.sendMessage(
 		msg.chat.id,
 		'Оберіть інтервал часу або дізнайтесь швидкість вітру',
@@ -35,7 +35,7 @@ bot.onText(/\/Weather/, (msg) => {
 	);
 });
 
-bot.onText(/\/Coin/, (msg) => {
+bot.onText(/\/Курс валют/, (msg) => {
 	bot.sendMessage(msg.chat.id, 'Оберіть валюту яка Вас цікавить', {
 		reply_markup: {
 			keyboard: [['USD', 'EUR'], ['Попередне меню']],
