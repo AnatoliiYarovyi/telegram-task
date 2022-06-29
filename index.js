@@ -12,7 +12,7 @@ const { TOKEN } = process.env;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 bot.onText(/\/start/, (msg) => {
-	bot.sendMessage(msg.chat.id, 'Welcome', {
+	bot.sendMessage(msg.chat.id, 'Вітаю!', {
 		reply_markup: {
 			keyboard: [['/Погода'], ['/Курс валют']],
 		},
@@ -69,9 +69,9 @@ bot.on('message', async (msg) => {
 				break;
 
 			case 'Попередне меню':
-				bot.sendMessage(msg.chat.id, 'Welcome', {
+				bot.sendMessage(msg.chat.id, 'Вітаю!', {
 					reply_markup: {
-						keyboard: [['/Weather', '/Coin']],
+						keyboard: [['/Погода'], ['/Курс валют']],
 					},
 				});
 				break;
