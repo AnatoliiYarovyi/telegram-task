@@ -5,8 +5,7 @@ dotenv.config();
 
 import { getWeather } from './functions/getWeather.js';
 import getWindInformation from './functions/getWindInformation.js';
-import { getDataMono, getExchangeRates } from './functions/getExchangeRates.js';
-getDataMono();
+import { getExchangeRates } from './functions/getExchangeRates.js';
 
 const { TOKEN } = process.env;
 const bot = new TelegramBot(TOKEN, { polling: true });
