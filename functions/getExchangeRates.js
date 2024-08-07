@@ -1,29 +1,42 @@
 import axios from 'axios';
 
-let dataMono = [];
-const getDataMono = () => {
-	setInterval(async () => {
+let dataMono = {
+	data: null,
+	date: null,
+};
+
+const getDataMono = async () => {
+	const differentTimes = dataMono?.date
+		? (new Date().valueOf() - dataMono?.date) / 1000 < 300
+		: false;
+
+	if (differentTimes) {
+		return dataMono;
+	} else {
 		try {
 			const data = await axios.get(
 				'https://api.monobank.ua/bank/currency',
 			);
-			dataMono = data.data;
+			dataMono.data = data.data;
+			dataMono.date = new Date().valueOf();
+
+			return dataMono;
 		} catch (error) {
 			throw error;
 		}
-	}, 65000);
+	}
 };
 
 const getExchangeRates = async (currency) => {
 	if (currency === 'USD') {
 		const dataPrivat = await getDataPrivat();
 		const codeUSD = 840;
-		const message = currencyFilter(currency, codeUSD, dataPrivat);
+		const message = await currencyFilter(currency, codeUSD, dataPrivat);
 		return message;
 	} else if (currency === 'EUR') {
 		const dataPrivat = await getDataPrivat();
 		const codeEUR = 978;
-		const message = currencyFilter(currency, codeEUR, dataPrivat);
+		const message = await currencyFilter(currency, codeEUR, dataPrivat);
 		return message;
 	}
 
@@ -38,7 +51,7 @@ const getExchangeRates = async (currency) => {
 		}
 	}
 
-	function currencyFilter(currency, code, dataPrivat) {
+	async function currencyFilter(currency, code, dataPrivat) {
 		const messagePrivat = dataPrivat.reduce((acc, el) => {
 			if (el.ccy === currency) {
 				acc += `\nPrivat:\n${Number(el.buy).toFixed(
@@ -47,7 +60,9 @@ const getExchangeRates = async (currency) => {
 			}
 			return acc;
 		}, ``);
-		const messageMono = dataMono.reduce((acc, el) => {
+
+		const monoDate = await getDataMono();
+		const messageMono = monoDate.data.reduce((acc, el) => {
 			if (el.currencyCodeA === code && el.currencyCodeB === 980) {
 				acc += `\nMono:\n${Number(el.rateBuy).toFixed(
 					2,
@@ -60,4 +75,4 @@ const getExchangeRates = async (currency) => {
 	}
 };
 
-export { getDataMono, getExchangeRates };
+export { getExchangeRates };
